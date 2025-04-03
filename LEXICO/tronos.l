@@ -14,7 +14,7 @@
 [Ww]"esteros" {c_westeros++;}
 [Ii]"nvernalia" {c_invernalia++;}
 [Dd]"esembarco "[Dd]"el "[Rr]"ey" {c_desembarco++;}
-[Nn]"ido "[Dd]"e "(\xC3\x81|\xC3\A1|a|A)"guilas" {c_nidodeaguilas++;}
+[Nn]"ido "[Dd]"e "(\xC3\x81|\xC3\xA1|a|A)"guilas" {c_nidodeaguilas++;}
 [Aa]"ltojard"(\xC3\xAD|i)"n" {c_altojardin++;}
 [Aa]"guasdulces" {c_aguasdulces++;}
 [Rr]"ocadrag"(o|\xC3\xB3)"n" {c_rocadragon++;}
@@ -47,9 +47,7 @@
 [Tt]"yrion" {c_tyrion++;}
 [Cc]"ersei" {c_cersei++;}
 
-
-
-
+.
 %%
 int main(int argc, char *argv[]) {
 	
