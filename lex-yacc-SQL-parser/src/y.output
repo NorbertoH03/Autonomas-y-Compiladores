@@ -1,0 +1,329 @@
+Grammatica
+
+    0 $accept: lines $end
+
+    1 lines: line
+    2      | lines line
+    3      | lines error
+
+    4 line: select identifiers FROM identifiers WHERE cond NL
+
+    5 identifiers: '*'
+    6            | IDENTIFIER
+    7            | IDENTIFIER ',' identifiers
+
+    8 select: SELECT
+
+    9 cond: IDENTIFIER op compare
+   10     | IDENTIFIER op compare conn cond
+
+   11 compare: IDENTIFIER
+   12        | CONST
+
+   13 op: '<'
+   14   | '='
+   15   | '>'
+
+   16 conn: AND
+   17     | OR
+
+
+Simboli terminali e regole in cui appaiono
+
+    $end (0) 0
+    '*' <Mystr> (42) 5
+    ',' (44) 7
+    '<' <Mystr> (60) 13
+    '=' <Mystr> (61) 14
+    '>' <Mystr> (62) 15
+    error (256) 3
+    NL <numerorighe> (258) 4
+    IDENTIFIER <Mystr> (259) 6 7 9 10 11
+    CONST <Mystr> (260) 12
+    SELECT (261) 8
+    FROM (262) 4
+    WHERE (263) 4
+    AND (264) 16
+    OR (265) 17
+
+
+Simboli nonterminali e regole in cui appaiono
+
+    $accept (16)
+        on left: 0
+    lines (17)
+        on left: 1 2 3
+        on right: 0 2 3
+    line (18)
+        on left: 4
+        on right: 1 2
+    identifiers <Mystr> (19)
+        on left: 5 6 7
+        on right: 4 7
+    select (20)
+        on left: 8
+        on right: 4
+    cond <Mystr> (21)
+        on left: 9 10
+        on right: 4 10
+    compare <Mystr> (22)
+        on left: 11 12
+        on right: 9 10
+    op <Mystr> (23)
+        on left: 13 14 15
+        on right: 9 10
+    conn (24)
+        on left: 16 17
+        on right: 10
+
+
+Stato 0
+
+    0 $accept: . lines $end
+
+    SELECT  shift e prosecuzione allo stato 1
+
+    lines   prosecuzione allo stato 2
+    line    prosecuzione allo stato 3
+    select  prosecuzione allo stato 4
+
+
+Stato 1
+
+    8 select: SELECT .
+
+    $default  riduzione con la regola 8 (select)
+
+
+Stato 2
+
+    0 $accept: lines . $end
+    2 lines: lines . line
+    3      | lines . error
+
+    $end    shift e prosecuzione allo stato 5
+    error   shift e prosecuzione allo stato 6
+    SELECT  shift e prosecuzione allo stato 1
+
+    line    prosecuzione allo stato 7
+    select  prosecuzione allo stato 4
+
+
+Stato 3
+
+    1 lines: line .
+
+    $default  riduzione con la regola 1 (lines)
+
+
+Stato 4
+
+    4 line: select . identifiers FROM identifiers WHERE cond NL
+
+    IDENTIFIER  shift e prosecuzione allo stato 8
+    '*'         shift e prosecuzione allo stato 9
+
+    identifiers  prosecuzione allo stato 10
+
+
+Stato 5
+
+    0 $accept: lines $end .
+
+    $default  accetta
+
+
+Stato 6
+
+    3 lines: lines error .
+
+    $default  riduzione con la regola 3 (lines)
+
+
+Stato 7
+
+    2 lines: lines line .
+
+    $default  riduzione con la regola 2 (lines)
+
+
+Stato 8
+
+    6 identifiers: IDENTIFIER .
+    7            | IDENTIFIER . ',' identifiers
+
+    ','  shift e prosecuzione allo stato 11
+
+    $default  riduzione con la regola 6 (identifiers)
+
+
+Stato 9
+
+    5 identifiers: '*' .
+
+    $default  riduzione con la regola 5 (identifiers)
+
+
+Stato 10
+
+    4 line: select identifiers . FROM identifiers WHERE cond NL
+
+    FROM  shift e prosecuzione allo stato 12
+
+
+Stato 11
+
+    7 identifiers: IDENTIFIER ',' . identifiers
+
+    IDENTIFIER  shift e prosecuzione allo stato 8
+    '*'         shift e prosecuzione allo stato 9
+
+    identifiers  prosecuzione allo stato 13
+
+
+Stato 12
+
+    4 line: select identifiers FROM . identifiers WHERE cond NL
+
+    IDENTIFIER  shift e prosecuzione allo stato 8
+    '*'         shift e prosecuzione allo stato 9
+
+    identifiers  prosecuzione allo stato 14
+
+
+Stato 13
+
+    7 identifiers: IDENTIFIER ',' identifiers .
+
+    $default  riduzione con la regola 7 (identifiers)
+
+
+Stato 14
+
+    4 line: select identifiers FROM identifiers . WHERE cond NL
+
+    WHERE  shift e prosecuzione allo stato 15
+
+
+Stato 15
+
+    4 line: select identifiers FROM identifiers WHERE . cond NL
+
+    IDENTIFIER  shift e prosecuzione allo stato 16
+
+    cond  prosecuzione allo stato 17
+
+
+Stato 16
+
+    9 cond: IDENTIFIER . op compare
+   10     | IDENTIFIER . op compare conn cond
+
+    '<'  shift e prosecuzione allo stato 18
+    '>'  shift e prosecuzione allo stato 19
+    '='  shift e prosecuzione allo stato 20
+
+    op  prosecuzione allo stato 21
+
+
+Stato 17
+
+    4 line: select identifiers FROM identifiers WHERE cond . NL
+
+    NL  shift e prosecuzione allo stato 22
+
+
+Stato 18
+
+   13 op: '<' .
+
+    $default  riduzione con la regola 13 (op)
+
+
+Stato 19
+
+   15 op: '>' .
+
+    $default  riduzione con la regola 15 (op)
+
+
+Stato 20
+
+   14 op: '=' .
+
+    $default  riduzione con la regola 14 (op)
+
+
+Stato 21
+
+    9 cond: IDENTIFIER op . compare
+   10     | IDENTIFIER op . compare conn cond
+
+    IDENTIFIER  shift e prosecuzione allo stato 23
+    CONST       shift e prosecuzione allo stato 24
+
+    compare  prosecuzione allo stato 25
+
+
+Stato 22
+
+    4 line: select identifiers FROM identifiers WHERE cond NL .
+
+    $default  riduzione con la regola 4 (line)
+
+
+Stato 23
+
+   11 compare: IDENTIFIER .
+
+    $default  riduzione con la regola 11 (compare)
+
+
+Stato 24
+
+   12 compare: CONST .
+
+    $default  riduzione con la regola 12 (compare)
+
+
+Stato 25
+
+    9 cond: IDENTIFIER op compare .
+   10     | IDENTIFIER op compare . conn cond
+
+    AND  shift e prosecuzione allo stato 26
+    OR   shift e prosecuzione allo stato 27
+
+    $default  riduzione con la regola 9 (cond)
+
+    conn  prosecuzione allo stato 28
+
+
+Stato 26
+
+   16 conn: AND .
+
+    $default  riduzione con la regola 16 (conn)
+
+
+Stato 27
+
+   17 conn: OR .
+
+    $default  riduzione con la regola 17 (conn)
+
+
+Stato 28
+
+   10 cond: IDENTIFIER op compare conn . cond
+
+    IDENTIFIER  shift e prosecuzione allo stato 16
+
+    cond  prosecuzione allo stato 29
+
+
+Stato 29
+
+   10 cond: IDENTIFIER op compare conn cond .
+
+    $default  riduzione con la regola 10 (cond)
