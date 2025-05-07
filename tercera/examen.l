@@ -19,6 +19,6 @@ int yywrap(void)
 }
 
 int yyerror(char* s){
-fprintf(stderr, "Error de Sintaxis! - %s\n", s);
+fprintf(stderr, "Error de Sintaxis %s\n", s);
 return 0;
 }
